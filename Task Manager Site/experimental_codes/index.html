@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XEROHT</title>
+        <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="functions.js"></script>
+    </head>
+    <body>
+        <header id="header">XEROHT TASK MANAGER</header>
+        <nav id="navbar">
+            <ul>
+                <li id="navitem"><a href="">Home</a></li>
+                <li id="navitem"><a href="">About</a></li>
+                <li id="navitem"><a href="">Settings</a></li>
+            </ul>
+        </nav>
+        <div id="content">
+            <p id="p"></p>
+        </div>
+
+        <footer id="footer">Kompanya ni Raven &copy; 2025</footer>
+
+        <script>insert("p");</script>
+        <script>append("content")</script>
+        <script>create("content", "Title", "DEscription")</script>
+        <script>loadDoc("p")</script>
+        <!-- <script>clone("login","content")</script> -->
+    </body>
+</html>

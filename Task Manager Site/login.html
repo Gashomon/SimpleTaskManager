@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XEROHT</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="functions.js"></script>
+    </head>
+    <body>
+        <div class="loginPage" id="login">
+            <form id="loginForm" onsubmit="return false">
+                <label class="loginLabel" for="username">UserName</label>
+                <input type="text" id="username" class="loginInput" required autocomplete="additional-name">
+                <br>
+                <label class="loginLabel" for="password">Password</label>
+                <input type="password" id="password" class="loginInput"  required>
+                <br>
+                <label class="loginLabel" for="signup">First Time User? Check the box to Sign Up.</label>
+                <input type="checkbox" id="signup" name="signup" class="loginInput">
+                <br>
+                <input type="submit" class="loginInput" onclick="login()">
+                <input type="reset" class="loginInput">
+                <br>
+                <p class="loginResponse" id="loginResponse"></p>
+            </form>
+        </div>        
+    </body>
+</html>

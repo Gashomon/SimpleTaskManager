@@ -1,0 +1,296 @@
+*{
+    transition: opacity 0.5s;
+}
+
+/* MAIN */
+body{
+    background-color: hsl(200, 90%, 25%);
+    min-width: 20em;
+}
+header{
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: hsl(200, 90%, 25%);
+    display: block;
+    position: sticky;
+    padding-bottom: 2px;
+    z-index: 3;
+}
+.header{
+    font-size: 3em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    vertical-align: middle;
+    height: 0.5em;
+    color: wheat;
+}
+.footer{
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    vertical-align: middle;
+    background-color: hsl(207, 80%, 16%);
+    height: 1.5em;
+    color: aliceblue;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    text-indent: 0%;
+    z-index: 3;
+}
+.navbar{
+    display: block;
+    background-color: white;
+    list-style-type: none;
+    width: 100%;
+    border-radius: 10px;
+    margin: 5px;
+    text-align: center;
+    height: auto;
+    min-height: 2em;
+}
+.navitem {
+    list-style: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 30px;   
+    width: 20%;
+}
+.navitem:hover{
+    cursor:pointer;
+    background-color: hsla(0, 7%, 55%, 0.277);
+    border-radius: 30%;
+}
+
+.navitemDisabled{
+    list-style: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 30px;   
+    width: 20%;
+    background-color: hsla(0, 7%, 55%, 0.277);
+}
+
+.navitemDisabled:hover{
+    cursor:pointer;
+    background-color: hsla(0, 6%, 28%, 0.277);
+    border-radius: 30%;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-size: 30px;
+    text-align: center;
+}
+.content{
+    background-color: hsla(70, 100%, 86%, 0.5);
+    height: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    vertical-align: middle;
+    min-height: 34em;
+    overflow:auto;
+    border-radius: 20px;
+    scroll-behavior: smooth;
+    z-index: -1;
+}
+
+@media screen and (max-width:50em) {
+    .header{
+        font-size: 2em;
+    }
+    .navitem{
+        font-size: 1.5em;
+        margin-left: 2%;
+        margin-right: 2%;
+        width: 20%;
+    }
+}
+
+/* LOGIN */
+.loginPage{
+    margin-top: 10em;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:30px;
+    text-align: center;
+    width: 50%;
+    background-color: hsla(36, 100%, 90%, 0.9);
+    border-radius: 50px;
+    min-height: 20em;
+    height: auto;
+    position: relative;
+}
+
+.loginLabel{
+    font-size: 2em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: right;
+    margin: 10px;
+}
+
+.loginInput {
+    font-size: 1.5em;
+    margin: 10px;
+    text-align: left;
+}
+
+.loginResponse{
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: right;
+    margin: 10px;
+    color: red;
+    text-align: center;
+}
+
+#signup{
+    width: 30px;
+    height: 30px;
+    margin-left: 0px;
+}
+
+@media screen and (max-width:50em) {
+    .loginLabel{
+        font-size: 1em;
+    }
+    .loginInput{
+        font-size: 1em;
+        padding-left: 5%;
+        padding-right: 5%;
+        margin: 5px;
+    }
+}
+
+
+/* HOME */
+.homePage{
+    position:static;
+    width: auto;
+    z-index: 2;
+    margin-top: 5px;
+    top: 10%;
+    vertical-align: top ;
+}
+
+.homeMain{
+    border-radius: 10px;
+    background-color: aliceblue;
+    width: auto;
+    display: flex;
+}
+
+.greeting{
+    font-size: 2em;
+    width: 80%;
+    overflow: hidden;
+}
+
+.homeBtn{
+    width: 9em;
+    height: 2em;
+    font-size: 1em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: auto;
+    margin-left: 2em;
+    margin-right: 2em;
+    vertical-align: middle;
+    
+}
+
+@media screen and (max-width:50em) {
+    .homeMain{
+        display: block;
+        text-align: center;
+    }
+
+    .homeBtn{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+
+/* TASK ENTRY*/
+.taskEntry{
+    background-color: hsl(36, 100%, 90%);
+    width: 50%;
+    margin: auto;
+    margin-top: 30px;
+    border-style: solid;
+    border-radius: 3%;
+    border-color: rgb(28, 3, 51);
+    height: auto;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.taskText{
+    padding: 20px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.taskTitle{
+    font-size: 3em;
+    margin-bottom: 0px;
+    background-color: hsl(160, 100%, 75%);
+}
+.taskDesc{
+    font-size: 1em;
+    text-align: right;
+    background-color: hsl(180, 100%, 97%);
+}
+
+.taskBtn{
+    height: 3em;
+    width: 3em;
+    text-align: right;
+    display: block;
+}
+
+.taskDel{
+    background-color: hsl(0, 57%, 58%);
+    float: right;
+}
+
+.taskDel:hover{
+    background-color: hsl(0, 42%, 34%);
+}
+
+.tmpTaskTitle{
+    font-size: 3em;
+    margin-bottom: 0px;
+    background-color: hsl(160, 100%, 75%);
+    border-style: none;
+    margin: auto;
+    padding: 5px;
+}
+
+.tmpTaskDesc{
+    font-size: 1em;
+    text-align: right;
+    background-color: hsl(180, 100%, 97%);
+    border-style: none;
+    margin: auto;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-right: 10px;
+    width:80%;
+}
+

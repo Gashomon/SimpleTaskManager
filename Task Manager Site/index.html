@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XEROHT</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="functions.js"></script>
+    </head>
+    <body>
+        <header id="header">
+            <h1 class="header">TASK MANAGER</h1> 
+        </header>
+
+        <nav class="navbar">
+            <ul>
+                <li class="navitem" id="navhome" onclick="loadHome()">Home</li>
+                <li class="navitem" id="navabout" onclick="show(`about`)">About Us</li>
+                <li class="navitem" id="navlogin"onclick="logout()">Logout</li>
+            </ul>
+        </nav>
+        
+        <div class="content" id="content">
+            
+        </div>
+
+        <footer id="footer">
+            <p class="footer" id="footText">Kumpanya ni Raven &copy; </p>
+        </footer>
+
+        <script>firstOpen()</script>
+        
+    </body>
+</html>
