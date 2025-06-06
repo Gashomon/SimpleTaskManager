@@ -2,10 +2,14 @@ let currUser = "Guest";
 let currID = 0;
 let tempTaskCount = 0;
 
-function firstOpen(){
-    logout();
+function loadLogin(){
+    document.getElementById('navlogin').onclick = () => {loadLogin();}
+    document.getElementById('navhome').onclick = () => {null}
+    document.getElementById('navhome').title = "login to Continue"; 
+    show('login');
     document.getElementById("footText").textContent += new Date().getFullYear();
 }
+
 function show(page){
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
@@ -19,6 +23,8 @@ function login(){
     const uname = document.getElementById('loginForm').elements[0].value;
     const pass = document.getElementById('loginForm').elements[1].value;
     const toSignup = document.getElementById('loginForm').elements[2].checked;
+
+    // fetch user data using username
 
     if (toSignup) {
         let validNewAcc = false;
@@ -47,10 +53,11 @@ function login(){
 }
 
 function logout(){
-    currUser = "Guest";
-    currID = 0;
-    // toggleNavItem('navhome', loadHome());   
-    show('login');
+    if(window.confirm("Are you sure Log Out?")){
+        loadLogin();
+    }
+
+    
 }
 
 function loadHome(userid=currID, username=currUser){
@@ -58,6 +65,10 @@ function loadHome(userid=currID, username=currUser){
     xhttp.onload = function() {
         document.getElementById('content').innerHTML = this.responseText;
         document.getElementById('greeting').textContent = `WELCOME ${username}!`;
+
+        document.getElementById('navlogin').onclick = () => {logout();}
+        document.getElementById('navhome').onclick = () => {loadHome();}
+        document.getElementById('navhome').title = null; 
         }
     xhttp.open("GET", 'home.html', true);
     xhttp.send();
@@ -93,32 +104,36 @@ class Task{
         this.taskTick.id = `taskTick${this.tmpid}`;
         this.taskDel.id = `taskDel${this.tmpid}`;
 
-        // this.taskTick.addEventListener("click", this.toggleFinish())
         
         this.taskEntry.appendChild(this.taskTick);
         this.taskEntry.appendChild(this.taskTitle);
         this.taskEntry.appendChild(this.taskDesc);
         this.taskEntry.appendChild(this.taskDel);
         
-        // this.changeTitle();
+        
         this.taskTick.onclick = () => {
             this.changeStatus();
+            // import code to change in backend
         }
 
         this.taskDel.onclick = () =>{
             this.deleteTask();
+            // import code to delete in backend
         }
 
         this.taskTitle.ondblclick = () => {
             this.changeTitle();
+            // import code to change in backend
         }
         
         this.taskDesc.ondblclick = () => {
             this.changeDesc();
+            // import code to change in backend
         }
 
         this.changeTitle();
         this.changeDesc();
+        // import code to create in backend
     }
 
     changeTitle(){
@@ -127,7 +142,7 @@ class Task{
         tmpTitle.placeholder = "Task Name";
         tmpTitle.className = "tmpTaskTitle";
         tmpTitle.maxLength = 10;
-        // tmpTitle.value = this.taskTitle.textContent;
+        // tmpTitle.value = this.taskTitle.textContent; //store old value. doesnt clear initial data.
         
         this.taskEntry.replaceChild(tmpTitle, this.taskTitle);
 
@@ -140,10 +155,10 @@ class Task{
     changeDesc(){
         const tmpDesc = document.createElement("input");
         tmpDesc.type = "text";
-        tmpDesc.placeholder = "Task Descriptioon";
+        tmpDesc.placeholder = "Task Description";
         tmpDesc.className = "tmpTaskDesc";
         tmpDesc.maxLength = 50;
-        // tmpDesc.value = this.taskDesc.textContent;
+        // tmpDesc.value = this.taskDesc.textContent; //store old value. doesnt clear initial data.
         
         this.taskEntry.replaceChild(tmpDesc, this.taskDesc);
 
@@ -167,6 +182,7 @@ class Task{
             this.taskDesc.style.backgroundColor = "hsl(180, 100%, 97%)";
         }
     }
+
     deleteTask(){
         if(window.confirm("Delete Task?")){
             this.taskEntry.remove();
@@ -181,16 +197,26 @@ function addTask(){
     document.getElementById('content').appendChild(task.taskEntry);
 }
 
-class Tasks{
-    constructor(){
-        this.tempTaskCount = 0;
+function loadTasks(){
+    //use multiple addTasks
+}
+
+function toggleFinished(){
+    let nonehidden = document.getElementById('hideFinish').textContent == 'Hide Finished' ? true : false;
+    if(nonehidden){
+        document.getElementById('hideFinish').textContent = "Show Finished";
+        for (let i = 1; i <= tempTaskCount; i++) {
+            if(document.getElementById(`taskTick${i}`).checked){
+                document.getElementById(`taskEntry${i}`).style.display = 'none';
+            }
+        }
     }
-
-    addTask(userid){
-        let newId = tempTaskCount++;
-        new Task(newId, "", "", 'ongoing');
-
-        document.getElementById().appendChild();
-
+    else{
+        document.getElementById('hideFinish').textContent = "Hide Finished";
+        for (let i = 1; i <= tempTaskCount; i++) {
+            document.getElementById(`taskEntry${i}`).style.display = 'block';
+            
+        }
     }
 }
+
