@@ -294,3 +294,23 @@ a {
     width:80%;
 }
 
+/* ABOUT */
+.aboutForm{
+    width: auto;
+    height: auto;
+    background-color: bisque;
+    margin: 30px;
+    display: block;
+    border-radius: 10px;
+}
+
+.about{
+    margin: 10px;
+    width: auto;
+    padding-top: 30px;
+    text-align: justify;
+    text-indent: 100px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
+    color: hsl(0, 15%, 19%);
+}
