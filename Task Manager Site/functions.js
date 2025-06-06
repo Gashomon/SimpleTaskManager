@@ -1,6 +1,7 @@
 let currUser = "Guest";
 let currID = 0;
 let tempTaskCount = 0;
+let Tasks = [];
 
 function loadLogin(){
     document.getElementById('navlogin').onclick = () => {loadLogin();}
@@ -56,8 +57,6 @@ function logout(){
     if(window.confirm("Are you sure Log Out?")){
         loadLogin();
     }
-
-    
 }
 
 function loadHome(userid=currID, username=currUser){
@@ -69,6 +68,8 @@ function loadHome(userid=currID, username=currUser){
         document.getElementById('navlogin').onclick = () => {logout();}
         document.getElementById('navhome').onclick = () => {loadHome();}
         document.getElementById('navhome').title = null; 
+
+        loadTasks();
         }
     xhttp.open("GET", 'home.html', true);
     xhttp.send();
@@ -195,10 +196,17 @@ function addTask(){
     const task = new Task(newId, "", "", 'ongoing');
 
     document.getElementById('content').appendChild(task.taskEntry);
+    Tasks[tempTaskCount] = task;
 }
 
 function loadTasks(){
-    //use multiple addTasks
+    for (let i = 1; i <= tempTaskCount; i++) {
+        document.getElementById('content').appendChild(Tasks[i].taskEntry);
+        
+    }
+
+    //use multiple addTasks to import
+    
 }
 
 function toggleFinished(){
