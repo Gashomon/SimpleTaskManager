@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="result"></div>
+
+<script>
+const x = document.getElementById("result");
+
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+  // Store
+  // localStorage.setItem("lastname", "Smith");
+  // localStorage.setItem("bgcolor", "yellow");
+  // Retrieve
+  x.innerHTML = localStorage.getItem("lastname");
+  x.style.backgroundColor = localStorage.getItem("bgcolor");
+} else {
+  x.innerHTML = "Sorry, no Web storage support!";
+}
+</script>
+
+</body>
+</html>
+

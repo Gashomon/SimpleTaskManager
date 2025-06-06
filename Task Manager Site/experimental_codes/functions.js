@@ -68,7 +68,7 @@ function loadDoc(id) {
 
 
 
-
+  // this.taskTick.addEventListener("click", this.toggleFinish())
 
   const pages = ['home', 'about', 'login']
 
