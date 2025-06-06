@@ -17,8 +17,8 @@ Any suggestion is appreciated.
 
 3. Download Live Server Extension (or any other local server host)
 
-![guide1](media\guide3.png)
+![guide1](Task Manager Site/media/guide3.png)
 
 4. Run index.html using live server
 
-![guide1](media\guide4.png)
+![guide1](Task Manager Site/media/guide4.png)
