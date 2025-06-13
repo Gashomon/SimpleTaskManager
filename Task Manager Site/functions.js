@@ -3,6 +3,10 @@ let currID = 0;
 let tempTaskCount = 0;
 let Tasks = [];
 
+const localUSer = "Guest"
+const localPass = "ge"
+let localAccON = false
+
 function loadLogin(){
     document.getElementById('navlogin').onclick = () => {loadLogin();}
     document.getElementById('navhome').onclick = () => {null}
@@ -29,7 +33,8 @@ function login(){
 
     if (toSignup) {
         let validNewAcc = false;
-        // verify password
+        
+        // add new account
 
         validNewAcc = true //for testing only
         if (!validNewAcc) {
@@ -38,7 +43,11 @@ function login(){
         }
     } else {
         let rightPass = false;
-        // add new account
+        
+        if (uname == localUSer) {
+            rightPass = true;
+        }
+        // verify password
 
         if(!rightPass){
             document.getElementById("loginResponse").textContent = "Wrong Credentials";
@@ -49,8 +58,27 @@ function login(){
     currUser = uname;
     //fetch user ID
 
+    if (uname == localUSer && pass ==localPass) {
+        if (typeof(Storage) !== "undefined") {
+            localAccON = true
+        } 
+        else {
+            localAccON = false
+            document.getElementById("loginResponse").textContent = "Can't Load Local User";
+            return;
+        }
+        
+    }
+    else{
+        localAccON = false
+    }
+
+    tempTaskCount = 0;
+
     // toggleNavItem('navhome', 'loadHome()');  
     loadHome(currID, currUser);
+
+    
 }
 
 function logout(){
@@ -76,7 +104,7 @@ function loadHome(userid=currID, username=currUser){
 }
 
 class Task{
-    constructor(userid, title, desc, status){
+    constructor(taskid, title, desc, status){
         this.taskEntry = document.createElement("div");
         this.taskTitle = document.createElement("h1");
         this.taskDesc = document.createElement("p");
@@ -92,6 +120,7 @@ class Task{
         this.taskDel.title = "Delete Task";
         this.status = status;
         this.tmpid = tempTaskCount;
+        this.id = taskid;
 
         this.taskEntry.className = "taskEntry";
         this.taskTitle.className = "taskText taskTitle";
@@ -105,39 +134,39 @@ class Task{
         this.taskTick.id = `taskTick${this.tmpid}`;
         this.taskDel.id = `taskDel${this.tmpid}`;
 
-        
         this.taskEntry.appendChild(this.taskTick);
         this.taskEntry.appendChild(this.taskTitle);
         this.taskEntry.appendChild(this.taskDesc);
         this.taskEntry.appendChild(this.taskDel);
-        
+
+        this.checkStatus();
+
+        //apply backend
+
+        if (localAccON) {
+            localStorage.setItem(`title${taskid}`, title)
+            localStorage.setItem(`desc${taskid}`, desc)
+            localStorage.setItem(`stat${taskid}`, status)
+        }
         
         this.taskTick.onclick = () => {
-            this.changeStatus();
-            // import code to change in backend
+            this.changeStatusUI();
         }
 
         this.taskDel.onclick = () =>{
-            this.deleteTask();
-            // import code to delete in backend
+            this.deleteTaskUI();
         }
 
         this.taskTitle.ondblclick = () => {
-            this.changeTitle();
-            // import code to change in backend
+            this.changeTitleUI();
         }
         
         this.taskDesc.ondblclick = () => {
-            this.changeDesc();
-            // import code to change in backend
+            this.changeDescUI();
         }
-
-        this.changeTitle();
-        this.changeDesc();
-        // import code to create in backend
     }
 
-    changeTitle(){
+    changeTitleUI(){
         const tmpTitle = document.createElement("input");
         tmpTitle.type = "text";
         tmpTitle.placeholder = "Task Name";
@@ -150,10 +179,12 @@ class Task{
         tmpTitle.onchange = () => {
             this.taskTitle.textContent = tmpTitle.value;
             this.taskEntry.replaceChild(this.taskTitle, tmpTitle);
+
+            this.changeTitle();
         }
     }
 
-    changeDesc(){
+    changeDescUI(){
         const tmpDesc = document.createElement("input");
         tmpDesc.type = "text";
         tmpDesc.placeholder = "Task Description";
@@ -166,10 +197,12 @@ class Task{
         tmpDesc.onchange = () => {
             this.taskDesc.textContent = tmpDesc.value;
             this.taskEntry.replaceChild(this.taskDesc, tmpDesc);
+
+            this.changeDesc();
         }
     }
 
-    changeStatus(){
+    changeStatusUI(){
         if(this.taskTick.checked){
             this.status = "Done";
             this.taskEntry.style.backgroundColor = "hsl(36, 10%, 50%)";
@@ -182,11 +215,63 @@ class Task{
             this.taskTitle.style.backgroundColor = "hsl(160, 100%, 75%)";
             this.taskDesc.style.backgroundColor = "hsl(180, 100%, 97%)";
         }
+        this.changeStatus();
+    }
+
+    deleteTaskUI(){
+        if(window.confirm("Delete Task?")){
+            this.taskEntry.remove();
+            this.deleteTask();
+        }
+    }
+
+    checkStatus(){
+        if (this.status == "Done") {
+            this.taskTick.checked = true;
+        }
+        this.changeStatusUI();
+        console.log(this.status);
+        
+    }
+
+    //backend codes
+    changeTitle(){
+        if (localAccON) {
+            localStorage.setItem(`title${this.id}`,  this.taskTitle.textContent);
+            console.log(`title is ${localStorage.getItem(`title${this.id}`)}`);
+        }   
+    }
+
+    changeDesc(){
+        if (localAccON) {
+            localStorage.setItem(`desc${this.id}`, this.taskDesc.textContent);
+            console.log(`desc is ${localStorage.getItem(`desc${this.id}`)}`);
+        }
+    }
+
+    changeStatus(){
+        if (localAccON) {
+            localStorage.setItem(`stat${this.id}`, this.status)
+            console.log(`status is ${localStorage.getItem(`stat${this.id}`)}`);
+        }
     }
 
     deleteTask(){
-        if(window.confirm("Delete Task?")){
-            this.taskEntry.remove();
+        if (Tasks.length == 1) {
+            Tasks = []
+        } else {
+            Tasks.splice(this.tmpid,1);
+        }
+
+        if (localAccON) {
+            localStorage.setItem(`stat${this.id}`, "deleted");
+
+            if (Tasks.length == 0) {
+                localStorage.clear();
+                localStorage.setItem(`lastTaskId`, String(0))
+                console.log("cleared");
+            }
+            console.log(Tasks.length);
         }
     }
 }
@@ -194,19 +279,61 @@ class Task{
 function addTask(){
     let newId = tempTaskCount++;
     const task = new Task(newId, "", "", 'ongoing');
+ 
+    task.changeTitleUI();
+    task.changeDescUI();
 
     document.getElementById('content').appendChild(task.taskEntry);
     Tasks[tempTaskCount] = task;
+
+    if (localAccON) {
+        let cnt = String(tempTaskCount);
+        localStorage.setItem(`lastTaskId`, cnt);
+        console.log(`TOTALED ${localStorage.getItem(`lastTaskId`)} TASKS SUCCESSFULLY`);
+        console.log(`TOTALED ${cnt} TASKS SUCCESSFULLY`);
+        
+    }
 }
 
 function loadTasks(){
-    for (let i = 1; i <= tempTaskCount; i++) {
-        document.getElementById('content').appendChild(Tasks[i].taskEntry);
-        
-    }
+    // for (let i = 1; i <= tempTaskCount; i++) {
+    //     document.getElementById('content').appendChild(Tasks[i].taskEntry);
+    // }
+
+    //localstorage use
+    if (localAccON) {
+        const oldtasks = localStorage.getItem(`lastTaskId`); 
+        let title = "";
+        let desc = "";
+        let status = "";
+        for (let i = 0; i < oldtasks; i++) {
+            title = localStorage.getItem(`title${i}`);
+            desc = localStorage.getItem(`desc${i}`);
+            status = localStorage.getItem(`stat${i}`);
+
+            if (status == "deleted") {
+                console.log("deleted stuff");
+                continue;
+            }
+            else{
+                console.log(`import status ${status}`);
+            }
+
+            const task = new Task(i, title, desc, status);
+            document.getElementById('content').appendChild(task.taskEntry);
+            Tasks[i] = task;
+            
+
+            console.log(localStorage.getItem(`title${i}`));
+            console.log(tempTaskCount);
+        }
+        tempTaskCount = oldtasks;
+
+        console.log(`LOADED ${oldtasks} OLD TASKS SUCCESSFULLY`);
+    } 
 
     //use multiple addTasks to import
-    
+
 }
 
 function toggleFinished(){
