@@ -1,4 +1,6 @@
 let Tasks = [];
+let Functions = [];
+let CurrentFunction = [];
 
 function addTask(){
     let newId = tempTaskCount++;
@@ -17,6 +19,14 @@ function addTask(){
         console.log(`TOTALED ${cnt} TASKS SUCCESSFULLY`);
         
     }
+}
+
+function deleteTask(){
+
+}
+
+function editTask(){
+    
 }
 
 function loadTasks(){
@@ -79,6 +89,13 @@ function toggleFinished(){
     }
 }
 
+function accept(){
+
+}
+
+function cancel(){
+    
+}
 
 // Function to Display tasks
 function displayTasks() {

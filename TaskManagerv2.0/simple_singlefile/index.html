@@ -5,77 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SIMPLE_TODO</title>
         <link rel="stylesheet" href="styles.css">
+        <script src="functions.js"></script>
     </head>
     
 <body>
-<h1>JavaScript Project</h1>
-<h2>To-Do List</h2>
-
-<input id="task" placeholder="New task">
-
-<button onclick="addTask()">Add</button>
-
-<ul id="list"></ul>
-
-<button onclick="clearAll()">Clear All</button>
-
-<script>
-// Create a task Array
-let tasks = [];
-
-// Function to Display tasks
-function displayTasks() {
-  let html = "";
-  for (let i = 0; i < tasks.length; i++) {
-    html += "<li>" + tasks[i] +  " <button onclick='removeTask(" + i + ")';> x</button></li>";
-  }
-  document.getElementById("list").innerHTML = html;
-}
-
-// Function to Add a task
-function addTask() {
-  let taskInput = document.getElementById("task");
-  let text = taskInput.value;
-  if (text === "") {
-    return;
-  }
-  tasks.push(text);
-  taskInput.value = "";
-  saveTasks();
-  displayTasks();
-}
-
-// Function to Remove a task
-function removeTask(i) {
-  tasks.splice(i, 1);
-  saveTasks();
-  displayTasks();
-}
-
-// Function to Clear all tasks
-function clearAll() {
-  tasks = [];
-  saveTasks();
-  displayTasks();
-}
-
-// Function to Save tasks
-function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-// Function to Load tasks
-function loadTasks() {
-  let saved = localStorage.getItem("tasks");
-  if (saved !== null) {
-    tasks = JSON.parse(saved);
-  }
-}
-
-// Load and display tasks when page loads 
-loadTasks();
-displayTasks();
-</script>
-
+    <div class="homePage">
+        <div class="homeMain">
+            <h3 class="greeting" id="greeting">WELCOME!!</h3>
+            <button class="homeBtn" type="button" id="addTask" onclick="addTask()">Add Task</button>
+            <button class="homeBtn" type="button" id="hideFinish" onclick="toggleFinished()">Hide Finished</button>
+            <button class="homeBtn" type="button" id="hideFinish" onclick="clearAll()">Clear All</button>
+        </div>
+        <div class="taskBox">
+            <input id="task" placeholder="New task">
+            <button onclick="Accept()">Accept</button>
+            <button onclick="Cancel()">Cancel</button>
+        </div>
+        <div class="classList">
+        </div>
+    </div>
 </body>
 </html>

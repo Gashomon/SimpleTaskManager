@@ -119,62 +119,6 @@ a {
     }
 }
 
-/* LOGIN */
-.loginPage{
-    margin-top: 10em;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding:30px;
-    text-align: center;
-    width: 50%;
-    background-color: hsla(36, 100%, 90%, 0.9);
-    border-radius: 50px;
-    min-height: 20em;
-    height: auto;
-    position: relative;
-}
-
-.loginLabel{
-    font-size: 2em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-align: right;
-    margin: 10px;
-}
-
-.loginInput {
-    font-size: 1.5em;
-    margin: 10px;
-    text-align: left;
-}
-
-.loginResponse{
-    font-size: 1em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-align: right;
-    margin: 10px;
-    color: red;
-    text-align: center;
-}
-
-#signup{
-    width: 30px;
-    height: 30px;
-    margin-left: 0px;
-}
-
-@media screen and (max-width:50em) {
-    .loginLabel{
-        font-size: 1em;
-    }
-    .loginInput{
-        font-size: 1em;
-        padding-left: 5%;
-        padding-right: 5%;
-        margin: 5px;
-    }
-}
-
 
 /* HOME */
 .homePage{
@@ -197,6 +141,7 @@ a {
     font-size: 2em;
     width: 80%;
     overflow: hidden;
+    padding-left: 1em;
 }
 
 .homeBtn{
