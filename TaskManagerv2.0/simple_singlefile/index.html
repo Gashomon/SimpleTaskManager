@@ -11,17 +11,24 @@
 <body>
     <div class="homePage">
         <div class="homeMain">
-            <h3 class="greeting" id="greeting">WELCOME!!</h3>
-            <button class="homeBtn" type="button" id="addTask" onclick="addTask()">Add Task</button>
-            <button class="homeBtn" type="button" id="hideFinish" onclick="toggleFinished()">Hide Finished</button>
-            <button class="homeBtn" type="button" id="hideFinish" onclick="clearAll()">Clear All</button>
+            <h3 class="mainText">WELCOME!!</h3>
+            <button class="homeItem" type="button" id="addTask" onclick="addTask()">Add Task</button>
+            <button class="homeItem" type="button" id="hideFinish" onclick="clearAll()">Clear All</button>
+            <button class="homeItem" type="button" id="hideFinish" onclick="toggleFinished()">Hide Finished</button>
         </div>
-        <div class="taskBox">
-            <input id="task" placeholder="New task">
-            <button onclick="Accept()">Accept</button>
-            <button onclick="Cancel()">Cancel</button>
+
+        <div class="homeMain actionBox" id="actionBox">
+            <input class="homeItem textBox" placeholder="New task">
+            <button class="homeItem" type="button" onclick="Accept()">Accept</button>
+            <button  class="homeItem" type="button" onclick="cancelAction()">Cancel</button>
         </div>
-        <div class="classList">
+        
+        <div class="homeMain">
+            <div class="openTasks"></div>
+            <div class="doneTaskList">
+                <p><br></p>
+            </div>
+            <div class="closedTasks"></div>
         </div>
     </div>
 </body>
