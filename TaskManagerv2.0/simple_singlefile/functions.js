@@ -1,8 +1,52 @@
 let jsonStringKey = "tasks"
-let Tasks = [];
+let Tasks = {};
 let openTasks = [];
 let closeTasks = [];
-let toTask = "add";
+let toTask = "";
+let historyIndex = 0; 
+
+class Task{
+  constructor(taskName){
+    this.task = document.createElement("div");
+    this.name = document.createElement("h4");
+    this.doneButton = document.createElement("button");
+    this.editButton = document.createElement("button");
+    this.deleteButton = document.createElement("button");
+    
+    this.id = 0;
+    this.state = "open";
+    
+    this.createTask();
+
+
+    this.task.className = "homeMain";
+    this.name.className = "mainText";
+    this.doneButton.className = "homeItem";
+    this.editButton.className = "homeItem";
+    this.deleteButton.className = "homeItem";
+    
+    this.task.appendChild(this.name);
+    this.task.appendChild(this.doneButton);
+    this.task.appendChild(this.editButton);
+    this.task.appendChild(this.deleteButton);
+
+
+    this.doneButton.onclick = () => {this.toggleDone()};
+    this.editButton.onclick = () => {this.editTask()};
+    this.deleteButton.onclick =() => {this.deleteTask()};
+  }
+
+  createTask(){
+    this.name.textContent = taskName;
+    loadHistoryIndex();
+    this.id = historyIndex++;
+    Tasks[this.id] = this;
+  }
+
+  toggleDone(){
+
+  }
+}
 
 function addTask(){
   toTask = "add";
@@ -15,7 +59,7 @@ function deleteTask(){
 }
 
 function editTask(){
-  toTask = "add";
+  toTask = "edit";
   document.getElementById("actionBox").style.display = "";
 }
 
@@ -24,10 +68,21 @@ function toggleFinished(){
 }
 
 function acceptAction(){
-
+  switch (toTask) {
+    case "add":
+      document.getElementById("openTasks").appendChild(new Task(taskName=document.getElementById("inputText").value).task);
+      break;
+  
+    default:
+      window.alert("Error: no set Action");
+      break;
+  }
+  cancelAction();
 }
 
 function cancelAction(){
+  toTask = "";
+  document.getElementById("inputText").value = "";
   document.getElementById("actionBox").style.display = "none";
 }
 
@@ -39,4 +94,13 @@ function saveTasks() {
 }
 
 function loadTasks() {
+
+}
+
+function loadHistoryIndex(){
+  historyIndex = localStorage.getItem('historyIndex');
+
+  if(historyIndex == null && !Number.isInteger(historyIndex)){
+    historyIndex = 0;
+  }
 }
