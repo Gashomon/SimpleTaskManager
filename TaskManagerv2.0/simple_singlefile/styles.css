@@ -2,7 +2,7 @@
 /* MAIN */
 body{
     background-color: hsl(200, 90%, 25%);
-    min-width: 20em;
+    min-width: 30em;
 }
 
 /* HOME */
@@ -20,7 +20,7 @@ body{
     background-color: aliceblue;
     width: auto;
     display: flex;
-    margin-bottom: 1em;
+    margin: 1em;
 }
 
 .homeItem{
@@ -42,14 +42,34 @@ body{
     padding-left: 1em;
 }
 
+.subText{
+    font-size: 1.5em;
+    overflow: hidden;
+    padding: 2em;
+    vertical-align: middle;
+    min-width: 40%;
+}
+
+.taskList{
+    width: 100%;
+}
+
 .homeMain.actionBox{
     margin-top: 1em;
     padding: 1em;
     justify-content: center;
 }
 
+.homeMain.taskMain{
+    width: 90%;
+    overflow: hidden;
+    display: flex;
+}
+
 .homeItem.textBox{
     width: 50%;
+    max-width: 50%;
+    overflow: hidden;
 }
 
 .homeItem:hover{
@@ -57,13 +77,29 @@ body{
 }
 
 @media screen and (max-width:50em) {
+    body{
+        overflow: scroll;
+    }
+
     .homeMain{
         display: block;
         text-align: center;
+        margin: 2em;
+        padding: 0.25em;
+    }
+
+    .homeMain.taskMain{
+        display: block;
+        width: 80%;
+    }
+
+    .taskList{
+        display: block;
     }
 
     .homeItem{
         margin-top: 10px;
         margin-bottom: 10px;
     }
+
 }

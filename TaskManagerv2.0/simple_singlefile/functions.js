@@ -16,11 +16,13 @@ class Task{
     this.id = 0;
     this.state = "open";
     
-    this.createTask();
+    this.createTask(taskName);
+    this.doneButton.textContent = "Close";
+    this.editButton.textContent = "Edit";
+    this.deleteButton.textContent = "Delete";
 
-
-    this.task.className = "homeMain";
-    this.name.className = "mainText";
+    this.task.className = "homeMain taskMain";
+    this.name.className = "subText";
     this.doneButton.className = "homeItem";
     this.editButton.className = "homeItem";
     this.deleteButton.className = "homeItem";
@@ -36,15 +38,24 @@ class Task{
     this.deleteButton.onclick =() => {this.deleteTask()};
   }
 
-  createTask(){
-    this.name.textContent = taskName;
+  createTask(name){
+    this.name.textContent = name;
     loadHistoryIndex();
     this.id = historyIndex++;
     Tasks[this.id] = this;
   }
 
   toggleDone(){
+    if (this.doneButton.textContent == 'Open'){
+      this.doneButton.textContent = "Close";
+    }
+    else{
+      this.doneButton.textContent = "Open";
+    }
+  }
 
+  deleteTask(){
+    this.task.remove();
   }
 }
 
