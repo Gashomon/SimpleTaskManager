@@ -4,6 +4,7 @@ let openTasks = [];
 let closeTasks = [];
 let toTask = "";
 let historyIndex = 0; 
+let index = historyIndex
 
 class Task{
   constructor(taskName){
@@ -81,6 +82,7 @@ function toggleFinished(){
 function acceptAction(){
   switch (toTask) {
     case "add":
+      console.log(document.getElementById("openTasks"));
       document.getElementById("openTasks").appendChild(new Task(taskName=document.getElementById("inputText").value).task);
       break;
   
@@ -98,7 +100,9 @@ function cancelAction(){
 }
 
 function deleteAllTask() {
-
+  document.getElementById("openTasks").textContent="";
+  Tasks = {};
+  localStorage.removeItem(historyIndex);
 }
 
 function saveTasks() {
