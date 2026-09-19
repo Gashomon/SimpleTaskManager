@@ -50,23 +50,28 @@ body{
     
 }
 
-.taskList{
-    width: 100%;
-    display: block;
+.mainList{
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
-.homeMain.actionBox{
+.taskList{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.actionBox{
     margin-top: 1em;
     padding: 1em;
     justify-content: center;
 }
 
-.homeMain.taskMain{
+.taskMain{
     overflow: hidden;
     display: flex;
 }
 
-.homeItem.textBox{
+.textBox{
     width: 50%;
     max-width: 50%;
     overflow: hidden;
@@ -74,6 +79,14 @@ body{
 
 .homeItem:hover{
     filter: brightness(0.80);
+}
+
+.darken{
+    background-color: grey;
+}
+
+.selected{
+    background-color: yellowgreen;
 }
 
 @media screen and (max-width:50em) {

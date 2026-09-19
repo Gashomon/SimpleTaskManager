@@ -18,17 +18,17 @@
         </div>
 
         <div class="homeMain actionBox" id="actionBox">
-            <input class="homeItem textBox" id ="inputText" placeholder="New task">
-            <button class="homeItem" type="button" onclick="acceptAction()">Accept</button>
+            <input class="homeItem textBox" id="inputText" placeholder="New task">
+            <button class="homeItem" id="actionButton" type="button" onclick="acceptAction()">Accept</button>
             <button  class="homeItem" type="button" onclick="cancelAction()">Cancel</button>
         </div>
         
-        <div class="homeMain">
+        <div class="homeMain mainList">
             <div class="taskList" id="openTasks"></div>
             <div class="taskList">
                 <p><br></p>
             </div>
-            <div class="TaskList"></div>
+            <div class="TaskList" id="doneTasks"></div>
         </div>
     </div>
 </body>
