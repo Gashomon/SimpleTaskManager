@@ -1,17 +1,13 @@
 let jsonStringKey = "tasks"
 let Tasks = {};
-let openTasks = [];
-let closeTasks = [];
 let toTask = "";
 let historyIndex = 0; 
 let currentTaskID = historyIndex;
 
 const limit = 300;
-const editEvent = new Event('editTask');
-const deleteEvent = new Event('deleteTask');
 
 class Task{
-  constructor(taskName){
+  constructor(taskName, load=false, id=null, taskState="open"){
     this.task = document.createElement("div");
     this.name = document.createElement("h4");
     this.doneButton = document.createElement("button");
@@ -21,8 +17,6 @@ class Task{
     this.id = 0;
     this.state = "open";
     
-    this.createTask(taskName);
-    this.task.id = this.id;
     this.doneButton.textContent = "Close";
     this.editButton.textContent = "Edit";
     this.deleteButton.textContent = "Delete";
@@ -41,12 +35,28 @@ class Task{
     this.doneButton.onclick = () => {this.toggleDone()};
     this.editButton.onclick = () => {this.editTask()};
     this.deleteButton.onclick =() => {this.deleteTask()};
+
+    
+    this.createTask(taskName, load, id, taskState);
   }
 
-  createTask(name){
+  createTask(name, load, id, taskState){
     this.name.textContent = name;
+    if(load){
+      this.id = id;
+      if(taskState == "close") {
+        this.state = 'close';
+        this.doneButton.textContent = "Open";
+        this.editButton.disabled = true;
+        this.task.className = "homeMain taskMain darken";
+      }
+    }
+    else{
     this.id = historyIndex++;
-    Tasks[this.id] = this;
+    }
+    
+    this.task.id = this.id;
+    this.updateTask();
   }
 
   toggleDone(){
@@ -64,6 +74,8 @@ class Task{
       this.task.className = "homeMain taskMain";
       document.getElementById("openTasks").appendChild(this.task);
     }
+    this.updateTask();
+    saveTasks();
   }
 
   editTask(){
@@ -77,8 +89,12 @@ class Task{
 
   deleteTask(){
     this.task.remove();
-    historyIndex--;
     delete Tasks[this.id];
+    saveTasks();
+  }
+
+  updateTask(){
+    Tasks[this.id] = [this.name.textContent, this.state];
   }
 }
 
@@ -90,12 +106,10 @@ function addTask(){
 }
 
 function editTask(){
-  
 }
 
 function delteTask(){
 }
-
 
 function acceptAction(){
   switch (toTask) {
@@ -110,12 +124,14 @@ function acceptAction(){
     case "edit":
       document.getElementById(currentTaskID).firstChild.textContent = document.getElementById("inputText").value;
       document.getElementById(currentTaskID).className = "homeMain taskMain";
+      Tasks[currentTaskID][0] = [document.getElementById("inputText").value];
       break;
 
     default:
       window.alert("Error: no set Action");
       break;
   }
+  saveTasks();
   cancelAction();
 }
 
@@ -123,28 +139,62 @@ function cancelAction(){
   toTask = "";
   document.getElementById("inputText").value = "";
   document.getElementById("actionBox").style.display = "none";
-  document.getElementById(currentTaskID).className = "homeMain taskMain";
+  if(Object.values(Tasks).length != 0){
+    document.getElementById(currentTaskID).className = "homeMain taskMain";
+  }
 }
 
 function deleteAllTask() {
   document.getElementById("openTasks").textContent="";
   document.getElementById("doneTasks").textContent="";
   Tasks = {};
+  historyIndex=0;
   localStorage.removeItem(historyIndex);
+  localStorage.removeItem(jsonStringKey);
+  cancelAction();
+}
+
+function toggleFinished(){
+  buttonText = document.getElementById("hideFinished").textContent;
+  if(buttonText == "Hide Finished"){
+    document.getElementById("doneTasks").style.display = "none";
+    document.getElementById("hideFinished").textContent = "Show Finished";
+  }
+  else{
+    document.getElementById("doneTasks").style.display = "";
+    document.getElementById("hideFinished").textContent = "Hide Finished";
+  }
 }
 
 function saveTasks() {
-
-}
-
-function loadTasks() {
-
+  localStorage.setItem(jsonStringKey, JSON.stringify(Tasks));
+  localStorage.setItem('historyIndex', historyIndex);
 }
 
 function loadHistoryIndex(){
   historyIndex = localStorage.getItem('historyIndex');
 
-  if(historyIndex == null && !Number.isInteger(historyIndex)){
+  if(historyIndex != null && !Number.isInteger(historyIndex)){
     historyIndex = 0;
   }
+}
+
+function loadTasks() {
+  if(localStorage.getItem(jsonStringKey) != null){
+    Tasks = JSON.parse(localStorage.getItem(jsonStringKey));
+    if (Tasks.length > 0)
+      historyIndex = Object.keys(Tasks).at(-1) +2;
+  }
+  Object.entries(Tasks).forEach((taskRecord) => {
+    id = taskRecord[0];
+    taskname = taskRecord[1][0];
+    state = taskRecord[1][1];
+    if(state == "close") {
+      document.getElementById("doneTasks").appendChild(new Task(taskName=taskname, load=true, id=id, taskState=state).task);
+    }
+    else{
+      document.getElementById("openTasks").appendChild(new Task(taskName=taskname, load=true, id=id, taskState=state).task);
+    }
+  });
+
 }
