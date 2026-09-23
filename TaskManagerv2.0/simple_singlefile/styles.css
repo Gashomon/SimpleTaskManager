@@ -69,6 +69,7 @@ body{
 .taskMain{
     overflow: hidden;
     display: flex;
+    background-color: rgb(201, 220, 239);
 }
 
 .textBox{
